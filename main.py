@@ -22,6 +22,14 @@ def display_board(board):
 
 # ---------- GAME LOOP ----------
 
+ships = [
+    ["porte-avion", 1, 5],
+    ["croiseur", 2, 4],
+    ["contre-torpilleurs", 3, 3],
+    ["sous-marin", 4, 3],
+    ["torpilleur", 5, 2],
+]
+
 board1 = generate_board()
 board2 = generate_board()
 
