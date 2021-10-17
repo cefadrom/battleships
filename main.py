@@ -1,3 +1,6 @@
+from random import randint
+
+
 # ---------- BOARD HELPERS ----------
 
 def generate_board():
@@ -18,6 +21,13 @@ def display_board(board):
             '  '.join([str(point) for point in line])
         )
     print('')
+
+
+def fill_board_random(board):
+    ship_to_place = 1
+    while ship_to_place < 6:
+        if place_ship(board, randint(0, 9), randint(0, 9), 'v' if randint(0, 1) == 1 else 'h', ship_to_place):
+            ship_to_place += 1
 
 
 # ---------- SHIPS HELPERS ----------
@@ -74,5 +84,5 @@ board2 = generate_board()
 
 if __name__ == '__main__':
     display_board(board1)
-    place_ship(board1, 5, 6, 'h', 3)
+    fill_board_random(board1)
     display_board(board1)
