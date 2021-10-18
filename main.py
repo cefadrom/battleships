@@ -48,6 +48,10 @@ def attack(board, line, col):
         print('Hit!')
 
 
+def is_lost(board):
+    return not any([any([col != 0 and col != 6 for col in line]) for line in board])
+
+
 # ---------- SHIPS HELPERS ----------
 
 ships = [
