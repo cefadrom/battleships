@@ -101,6 +101,27 @@ def is_ship_sunk(board, ship_id):
 # ---------- USER INPUT HELPERS ----------
 
 
+def ask_coordinate():
+    col, line = 0, 0
+
+    # Column
+    while col not in axis_indices['x']:
+        col = input('Column (between A and J) : ').upper()
+        if col not in axis_indices['x']:
+            print(f'Invalid column "{col}"')
+    col = axis_indices['x'].index(col)
+
+    # Line
+    while not (line >= 1 and line <= 10):
+        line = int(input('Line (between 1 and 10) : '))
+        if line < 1 or line > 10:
+            print(f'Invalid line "{line}"')
+    line -= 1
+
+    return line, col
+
+
+
 def user_add_ship(board, ship_id):
     ship_size = get_ship_data(ship_id)[2]
 
@@ -110,21 +131,9 @@ def user_add_ship(board, ship_id):
 
     while not placed:
         display_board(board)
-        line, col, direction = 0, 0, 0
-        
-        # Column
-        while col not in axis_indices['x']:
-            col = input('Column (between A and J) : ').upper()
-            if col not in axis_indices['x']:
-                print(f'Invalid column "{col}"')
-        col = axis_indices['x'].index(col)
 
-        # Line
-        while not (line >= 1 and line <= 10):
-            line = int(input('Line (between 1 and 10) : '))
-            if line < 1 or line > 10:
-                print(f'Invalid line "{line}"')
-        line -= 1
+        direction = 0
+        col, line = ask_coordinate()
 
         # Direction
         while direction != 'v' and direction != 'h':
