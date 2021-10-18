@@ -51,7 +51,7 @@ def place_ship(board, line, col, direction, ship_id):
     ship_size = get_ship_data(ship_id)[2]
 
     # Getting the points where the ship should be placed
-    if direction == 'v':
+    if direction == 'h':
         board_region = board[line][col:(col + ship_size)]
     else:
         board_region = [board_line[col] for board_line in board][line:(line + ship_size)]
@@ -66,7 +66,7 @@ def place_ship(board, line, col, direction, ship_id):
         return False
 
     # Place the ship
-    if direction == 'v':
+    if direction == 'h':
         board[line][col:(col + ship_size)] = [ship_id] * ship_size
     else:
         for board_line in range(10):
