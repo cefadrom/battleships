@@ -76,6 +76,10 @@ def place_ship(board, line, col, direction, ship_id):
     return True
 
 
+def is_ship_sunk(board, ship_id):
+    return not any([ship_id in line for line in board])
+
+
 # ---------- USER INPUT HELPERS ----------
 
 
