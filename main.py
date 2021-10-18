@@ -30,6 +30,24 @@ def fill_board_random(board):
             ship_to_place += 1
 
 
+def attack(board, line, col):
+    point = board[line][col]
+
+    if point == 0:
+        print('Miss!')
+        return
+    elif point == 6:
+        print('Already touched!')
+        return
+
+    board[line][col] = 6
+
+    if is_ship_sunk(board, point):
+        print('Sunk!')
+    else:
+        print('Hit!')
+
+
 # ---------- SHIPS HELPERS ----------
 
 ships = [
