@@ -76,6 +76,54 @@ def place_ship(board, line, col, direction, ship_id):
     return True
 
 
+# ---------- USER INPUT HELPERS ----------
+
+
+def user_add_ship(board, ship_id):
+    ship_size = get_ship_data(ship_id)[2]
+
+    print(f'\n\nPositionning your ship of length {ship_size}\n')
+
+    placed = False
+
+    while not placed:
+        display_board(board)
+        line, col, direction = 0, 0, 0
+        
+        # Column
+        while col not in axis_indices['x']:
+            col = input('Column (between A and J) : ').upper()
+            if col not in axis_indices['x']:
+                print(f'Invalid column "{col}"')
+        col = axis_indices['x'].index(col)
+
+        # Line
+        while not (line >= 1 and line <= 10):
+            line = int(input('Line (between 1 and 10) : '))
+            if line < 1 or line > 10:
+                print(f'Invalid line "{line}"')
+        line -= 1
+
+        # Direction
+        while direction != 'v' and direction != 'h':
+            direction = input('Direction (v for vertical or h for horizontal) : ').lower()
+            if direction != 'v' and direction != 'h':
+                print(f'Invalid direction "{direction}"')
+
+        placed = place_ship(board, line, col, direction, ship_id)
+
+        if not placed:
+            print('\n\nCan\'t place ship here, please retry\n')
+
+    
+def user_add_all_ships(board):
+    ship_id = 1
+    while ship_id <= 5:
+        user_add_ship(board, ship_id)
+        ship_id += 1
+
+
+
 # ---------- GAME LOOP ----------
 
 board1 = generate_board()
@@ -84,5 +132,5 @@ board2 = generate_board()
 
 if __name__ == '__main__':
     display_board(board1)
-    fill_board_random(board1)
+    user_add_all_ships(board1)
     display_board(board1)
