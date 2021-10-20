@@ -102,6 +102,14 @@ def is_ship_sunk(board, ship_id):
     return not any([ship_id in line for line in board])
 
 
+def ai_play_dumb(board):
+    line, col = None, None
+    # Prevents selecting already touched places
+    while line == None or col == None or board[line][col] == 6:
+        line, col = randint(0, 9), randint(0, 9)
+    return line, col
+
+
 # ---------- USER INPUT HELPERS ----------
 
 
@@ -166,6 +174,10 @@ board2 = generate_board()
 
 
 if __name__ == '__main__':
+    fill_board_random(board1)
     display_board(board1)
-    user_add_all_ships(board1)
+
+    while not is_lost(board1):
+        line, col = ai_play_dumb(board1)
+        attack(board1, line, col)
     display_board(board1)
