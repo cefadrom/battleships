@@ -12,13 +12,15 @@ axis_indices = {
     'y': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
 }
 
+
 def display_board(board):
     print(' ' * 5 + '  '.join(axis_indices['x']))
     for index, line in enumerate(board):
         text_index = axis_indices['y'][index]
         print(
-            (' ' + text_index if len(text_index) == 1 else text_index) + '   ' +
-            '  '.join([str(point) for point in line])
+            (' ' + text_index if len(text_index) == 1 else text_index)
+            + '   '
+            + '  '.join([str(point) for point in line])
         )
     print('')
 
@@ -77,13 +79,13 @@ def place_ship(board, line, col, direction, ship_id):
         board_region = board[line][col:(col + ship_size)]
     else:
         board_region = [board_line[col] for board_line in board][line:(line + ship_size)]
-    
-    # If the result region is smaller than the ship size, 
+
+    # If the result region is smaller than the ship size,
     # it means that the end of the ship is out of bounds
     if len(board_region) != ship_size:
         return False
-    
-    # Tests if all points are empty 
+
+    # Tests if all points are empty
     if not all(point == 0 for point in board_region):
         return False
 
@@ -92,9 +94,9 @@ def place_ship(board, line, col, direction, ship_id):
         board[line][col:(col + ship_size)] = [ship_id] * ship_size
     else:
         for board_line in range(10):
-            if board_line > (line - 1) and board_line < line + ship_size:
+            if (line - 1) < board_line < line + ship_size:
                 board[board_line][col] = ship_id
-    
+
     return True
 
 
@@ -105,7 +107,7 @@ def is_ship_sunk(board, ship_id):
 def ai_play_dumb(board):
     line, col = None, None
     # Prevents selecting already touched places
-    while line == None or col == None or board[line][col] == 6:
+    while line is None or col is None or board[line][col] == 6:
         line, col = randint(0, 9), randint(0, 9)
     return line, col
 
@@ -124,14 +126,13 @@ def ask_coordinate():
     col = axis_indices['x'].index(col)
 
     # Line
-    while not (line >= 1 and line <= 10):
+    while not (1 <= line <= 10):
         line = int(input('Line (between 1 and 10) : '))
         if line < 1 or line > 10:
             print(f'Invalid line "{line}"')
     line -= 1
 
     return line, col
-
 
 
 def user_add_ship(board, ship_id):
@@ -158,7 +159,7 @@ def user_add_ship(board, ship_id):
         if not placed:
             print('\n\nCan\'t place ship here, please retry\n')
 
-    
+
 def user_add_all_ships(board):
     ship_id = 1
     while ship_id <= 5:
