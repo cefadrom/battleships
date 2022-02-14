@@ -167,18 +167,38 @@ def user_add_all_ships(board):
         ship_id += 1
 
 
+def main_menu():
+    print("""
+##### BATTLESHIPS #####
+
+Select your gamemode:
+1. Player vs player
+2. Player vs AI
+3. AI vs AI
+4. Quit""")
+    possible_choices = ['1', '2', '3', '4']
+    choice = None
+    while choice not in possible_choices:
+        choice = input('> ')
+        if choice not in possible_choices:
+            print('Invalid choice')
+    return choice
+
 
 # ---------- GAME LOOP ----------
 
-board1 = generate_board()
-board2 = generate_board()
-
 
 if __name__ == '__main__':
-    fill_board_random(board1)
-    display_board(board1)
+    game_loop = True
 
-    while not is_lost(board1):
-        line, col = ai_play_dumb(board1)
-        attack(board1, line, col)
-    display_board(board1)
+    while game_loop:
+        choice = main_menu()
+        if choice == '1':
+            pass
+        elif choice == '2':
+            pass
+        elif choice == '3':
+            pass
+        else:
+            print('\nBye')
+            game_loop = False
