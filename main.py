@@ -185,6 +185,33 @@ Select your gamemode:
     return choice
 
 
+# ---------- GAMEMODES ----------
+
+
+def ai_vs_ai():
+    board1 = generate_board()
+    board2 = generate_board()
+    fill_board_random(board1)
+    fill_board_random(board2)
+
+    while True:
+        line, col = ai_play_dumb(board2)
+        attack(board2, line, col)
+        print('\n\nPlayer 1 fires on {}{}\n'.format(axis_indices['x'][col], axis_indices['y'][line]))
+        display_board(board2)
+        if is_lost(board2):
+            print('Player 1 won!')
+            break
+
+        line, col = ai_play_dumb(board1)
+        attack(board1, line, col)
+        print('\n\nPlayer 2 fires on {}{}\n'.format(axis_indices['x'][col], axis_indices['y'][line]))
+        display_board(board1)
+        if is_lost(board1):
+            print('Player 2 won!')
+            break
+
+
 # ---------- GAME LOOP ----------
 
 
@@ -198,7 +225,7 @@ if __name__ == '__main__':
         elif choice == '2':
             pass
         elif choice == '3':
-            pass
+            ai_vs_ai()
         else:
             print('\nBye')
             game_loop = False
